@@ -14,7 +14,7 @@ import java.util.logging.LogRecord;
  */
 public class TestLogHandler extends Handler {
 
-    private List<LogRecord> recordList = new ArrayList<LogRecord>();
+    private final List<LogRecord> recordList = new ArrayList<LogRecord>();
 	
 	public int getCount() {
 		return recordList.size();
