@@ -3,15 +3,16 @@ package com.tagtraum.perf.gcviewer.ctrl.action;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.io.File;
-import java.util.Map;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 
-import com.tagtraum.perf.gcviewer.exp.DataWriter;
 import com.tagtraum.perf.gcviewer.exp.DataWriterType;
 import com.tagtraum.perf.gcviewer.exp.impl.DataWriterFactory;
 import com.tagtraum.perf.gcviewer.model.GCModel;
@@ -33,7 +34,7 @@ public class Export extends AbstractAction {
     private GCViewerGui gcViewer;
     private JFileChooser saveDialog;
 
-    public Export(final GCViewerGui gcViewer) {
+    public Export(GCViewerGui gcViewer) {
         this.gcViewer = gcViewer;
         putValue(NAME, LocalisationHelper.getString("main_frame_menuitem_export"));
         putValue(MNEMONIC_KEY, new Integer(LocalisationHelper.getString("main_frame_menuitem_mnemonic_export").charAt(0)));
@@ -52,14 +53,14 @@ public class Export extends AbstractAction {
     }
 
     @Override
-    public void actionPerformed(final ActionEvent e) {
-        final GCDocument gcDocument = gcViewer.getSelectedGCDocument();
+    public void actionPerformed(ActionEvent e) {
+        GCDocument gcDocument = gcViewer.getSelectedGCDocument();
         for (int i=0; i<gcDocument.getChartPanelViewCount(); i++) {
-            final ChartPanelView chartPanelView = gcDocument.getChartPanelView(i);
-            final File file = new File(chartPanelView.getGCResource().getResourceName());
+            ChartPanelView chartPanelView = gcDocument.getChartPanelView(i);
+            File file = new File(chartPanelView.getGCResource().getResourceName());
             saveDialog.setCurrentDirectory(file.getParentFile());
             saveDialog.setSelectedFile(file);
-            final int val = saveDialog.showSaveDialog(gcViewer);
+            int val = saveDialog.showSaveDialog(gcViewer);
             if (val == JFileChooser.APPROVE_OPTION) {
                 ExportExtensionFileFilter fileFilter = (ExportExtensionFileFilter) saveDialog.getFileFilter();
                 // On OS/X if you don't select one of the filters and just press "Save" the filter may be null. Use the CSV one then
@@ -77,7 +78,7 @@ public class Export extends AbstractAction {
         }
     }
 
-    public void exportFile(final GCModel model, File file, final String extension, final DataWriterType dataWriterType) {
+    public void exportFile(GCModel model, File file, String extension, DataWriterType dataWriterType) {
         if (file.toString().indexOf('.') == -1) {
             file = new File(file.toString() + extension);
         }
@@ -89,8 +90,8 @@ public class Export extends AbstractAction {
 
             Map<String, Object> configuration = new HashMap<>();
             configuration.put(DataWriterFactory.GC_PREFERENCES, gcViewer.getSelectedGCDocument().getPreferences());
-            try (DataWriter writer = DataWriterFactory.getDataWriter(file, dataWriterType, configuration)) {
-                writer.write(model);
+            try (OutputStream outputStream = new FileOutputStream(file)) {
+            	DataWriterFactory.getDataWriter(dataWriterType).write(model, outputStream, configuration);
             }
             catch (Exception ioe) {
                 //ioe.printStackTrace();
@@ -113,7 +114,7 @@ public class Export extends AbstractAction {
         private final String description;
         private final DataWriterType dataWriterType;
 
-        public ExportExtensionFileFilter(final String extension, final String description, final DataWriterType dataWriterType) {
+        public ExportExtensionFileFilter(String extension, String description, DataWriterType dataWriterType) {
             super(extension.toLowerCase());
             this.description = description;
             this.dataWriterType = dataWriterType;

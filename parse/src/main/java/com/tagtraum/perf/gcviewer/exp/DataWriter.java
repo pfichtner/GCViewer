@@ -1,7 +1,8 @@
 package com.tagtraum.perf.gcviewer.exp;
 
-import java.io.Closeable;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Map;
 
 import com.tagtraum.perf.gcviewer.model.GCModel;
 
@@ -12,11 +13,8 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
  * Time: 9:56:19 AM
  * @author <a href="mailto:hs@tagtraum.com">Hendrik Schreiber</a>
  */
-public interface DataWriter extends Closeable {
-    public void write(GCModel model) throws IOException;
+public interface DataWriter {
+	
+    void write(GCModel model, OutputStream outputstream, Map<String, Object> configuration) throws IOException;
 
-    /**
-     * @see java.io.Closeable#close()
-     */
-    public void close() throws IOException;
 }

@@ -1,5 +1,6 @@
 package com.tagtraum.perf.gcviewer.exp;
 
+import static java.util.Collections.emptyMap;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
@@ -57,10 +58,10 @@ public class SimpleGcWriterTest {
     @Test
     public void exportLocaleDe() throws Exception {
         Locale.setDefault(new Locale("de", "ch"));
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                SimpleGcWriter writer = new SimpleGcWriter(outputStream)) {
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+        	SimpleGcWriter writer = new SimpleGcWriter();
             
-            writer.write(gcModel);
+            writer.write(gcModel, outputStream, emptyMap());
             
             String[] lines = outputStream.toString().split(System.getProperty("line.separator"));
             assertEquals("line count", 2, lines.length);
@@ -80,10 +81,10 @@ public class SimpleGcWriterTest {
     @Test
     public void exportLocaleSv() throws Exception {
         Locale.setDefault(new Locale("sv", "se"));
-        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                SimpleGcWriter writer = new SimpleGcWriter(outputStream)) {
+        try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+        	SimpleGcWriter writer = new SimpleGcWriter();
         
-            writer.write(gcModel);
+            writer.write(gcModel, outputStream, emptyMap());
             
             String[] lines = outputStream.toString().split(System.getProperty("line.separator"));
             assertEquals("line count", 2, lines.length);

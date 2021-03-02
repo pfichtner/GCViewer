@@ -2,10 +2,12 @@ package com.tagtraum.perf.gcviewer.exp.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Locale;
+import java.util.Map;
 
-import com.tagtraum.perf.gcviewer.exp.AbstractDataWriter;
+import com.tagtraum.perf.gcviewer.exp.DataWriter;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Generation;
 import com.tagtraum.perf.gcviewer.model.GCModel;
@@ -23,19 +25,17 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
  *
  * @author <a href="mailto:gcviewer@gmx.ch">Joerg Wuethrich</a>
  */
-public class SimpleGcWriter extends AbstractDataWriter {
+public class SimpleGcWriter implements DataWriter {
 
-    public SimpleGcWriter(OutputStream outputStream) {
-        super(outputStream);
-    }
+	private static final Locale NO_LOCALE = null;
 
-    /**
-     * @see com.tagtraum.perf.gcviewer.exp.AbstractDataWriter#write(com.tagtraum.perf.gcviewer.model.GCModel)
+	/**
+     * @see com.tagtraum.perf.gcviewer.exp.AbstractDataWriter#write(com.tagtraum.perf.gcviewer.model.GCModel, OutputStream, Map)
      */
     @Override
-    public void write(GCModel model) throws IOException {
+    public void write(GCModel model, OutputStream outputstream, Map<String, Object> configuration) throws IOException {
+    	PrintWriter out = new PrintWriter(outputstream);
         Iterator<AbstractGCEvent<?>> i = model.getEvents();
-        final Locale NO_LOCALE = null;
         while (i.hasNext()) {
             AbstractGCEvent<?> abstractEvent = i.next();
             if (abstractEvent.isStopTheWorld()) {
@@ -57,25 +57,17 @@ public class SimpleGcWriter extends AbstractDataWriter {
      * @return name without spaces
      */
     private String getSimpleType(AbstractGCEvent<?> event) {
-        String simpleType;
-
         if (isYoungOnly(event)) {
-            simpleType = "YoungGC";
+            return "YoungGC";
+        } else if (event.isInitialMark()) {
+            return "InitialMarkGC";
+        } else if (event.isRemark()) {
+            return "RemarkGC";
+        } else if (event.isFull()) {
+            return "FullGC";
+        } else {
+            return stripBlanks(event.getTypeAsString());
         }
-        else if (event.isInitialMark()) {
-            simpleType = "InitialMarkGC";
-        }
-        else if (event.isRemark()) {
-            simpleType = "RemarkGC";
-        }
-        else if (event.isFull()) {
-            simpleType = "FullGC";
-        }
-        else {
-            simpleType = stripBlanks(event.getTypeAsString());
-        }
-
-        return simpleType;
     }
 
     /**

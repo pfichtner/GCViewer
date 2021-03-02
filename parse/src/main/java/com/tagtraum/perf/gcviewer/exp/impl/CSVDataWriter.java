@@ -1,13 +1,15 @@
 package com.tagtraum.perf.gcviewer.exp.impl;
 
-import com.tagtraum.perf.gcviewer.exp.AbstractDataWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.Map;
+
+import com.tagtraum.perf.gcviewer.exp.DataWriter;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Iterator;
 
 /**
  * Write GC history with comma separated values.
@@ -16,21 +18,18 @@ import java.util.Iterator;
  *
  * @author <a href="mailto:hs@tagtraum.com">Hendrik Schreiber</a>
  */
-public class CSVDataWriter extends AbstractDataWriter {
+public class CSVDataWriter implements DataWriter {
 
-    public CSVDataWriter(OutputStream out) {
-        super(out);
-    }
-
-    private void writeHeader() {
+    private void writeHeader(PrintWriter out) {
         out.println("Timestamp(sec/#),Used(K),Total(K),Pause(sec),GC-Type");
     }
 
     /**
      * Writes the model and flushes the internal PrintWriter.
      */
-    public void write(GCModel model) throws IOException {
-        writeHeader();
+    public void write(GCModel model, OutputStream outputstream, Map<String, Object> configuration) throws IOException {
+    	PrintWriter out = new PrintWriter(outputstream);
+        writeHeader(out);
         
         Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents();
         while (i.hasNext()) {

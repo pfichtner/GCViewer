@@ -1,5 +1,7 @@
 package com.tagtraum.perf.gcviewer.exp;
 
+import static java.util.Collections.emptyMap;
+import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 
 import java.io.ByteArrayInputStream;
@@ -19,7 +21,6 @@ import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.util.MemoryFormat;
 
-import org.hamcrest.Matchers;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -56,48 +57,48 @@ public class SummaryDataWriterTest {
     @Test
     public void testWriteForEmptyModel() throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        SummaryDataWriter objectUnderTest = new SummaryDataWriter(output);
+        SummaryDataWriter objectUnderTest = new SummaryDataWriter();
         GCModel model = new GCModel();
         model.setURL(new URL("file", "localhost", "test-file"));
 
-        objectUnderTest.write(model);
+        objectUnderTest.write(model, output, emptyMap());
 
         String csv = output.toString();
 
-        assertThat("totalTenuredAllocMax", csv, Matchers.containsString("totalTenuredAllocMax; n/a; M"));
+        assertThat("totalTenuredAllocMax", csv, containsString("totalTenuredAllocMax; n/a; M"));
     }
 
     @Test
     public void testWrite() throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        SummaryDataWriter objectUnderTest = new SummaryDataWriter(output);
+        SummaryDataWriter objectUnderTest = new SummaryDataWriter();
 
-        objectUnderTest.write(createGcModel());
+        objectUnderTest.write(createGcModel(), output, emptyMap());
 
         String csv = output.toString();
 
-        assertThat("totalHeapAllocMax", csv, Matchers.containsString("totalHeapAllocMax; 999; K"));
+        assertThat("totalHeapAllocMax", csv, containsString("totalHeapAllocMax; 999; K"));
     }
 
     @Test
     public void testWriteWithFullGc() throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        SummaryDataWriter objectUnderTest = new SummaryDataWriter(output);
+        SummaryDataWriter objectUnderTest = new SummaryDataWriter();
 
         GCModel model = createGcModel();
         model.add(new GCEvent(0.5, 999, 724, 999, 0.8, Type.FULL_GC));
 
-        objectUnderTest.write(model);
+        objectUnderTest.write(model, output, emptyMap());
 
         String csv = output.toString();
 
-        assertThat("totalHeapAllocMax", csv, Matchers.containsString("avgfootprintAfterFullGC; 724; K"));
+        assertThat("totalHeapAllocMax", csv, containsString("avgfootprintAfterFullGC; 724; K"));
     }
 
     @Test
     public void testWriteWithPerm() throws IOException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        SummaryDataWriter objectUnderTest = new SummaryDataWriter(output);
+        SummaryDataWriter objectUnderTest = new SummaryDataWriter();
 
         // 83.403: [Full GC 83.403: [Tenured: 38156K->54636K(349568K), 0.6013150 secs] 141564K->54636K(506944K), [Perm : 73727K->73727K(73728K)], 0.6014256 secs] [Times: user=0.58 sys=0.00, real=0.59 secs]
         GCEvent fullGcEvent = new GCEvent(83.403, 141564, 54636, 506944, 0.6014256, Type.FULL_GC);
@@ -109,13 +110,13 @@ public class SummaryDataWriterTest {
         GCModel model = createGcModel();
         model.add(fullGcEvent);
 
-        objectUnderTest.write(model);
+        objectUnderTest.write(model, output, emptyMap());
 
         String csv = output.toString();
 
-        assertThat("totalPermAllocMax", csv, Matchers.containsString("totalPermAllocMax; 72; M"));
-        assertThat("totalPermUsedMax", csv, Matchers.containsString("totalPermUsedMax; " + memoryFormatter.formatToFormatted(73727).getValue() + "; M"));
-        assertThat("totalPermUsedMaxpc", csv, Matchers.containsString("totalPermUsedMaxpc; " + percentFormatter.format(100.0) + "; %"));
+        assertThat("totalPermAllocMax", csv, containsString("totalPermAllocMax; 72; M"));
+        assertThat("totalPermUsedMax", csv, containsString("totalPermUsedMax; " + memoryFormatter.formatToFormatted(73727).getValue() + "; M"));
+        assertThat("totalPermUsedMaxpc", csv, containsString("totalPermUsedMaxpc; " + percentFormatter.format(100.0) + "; %"));
     }
 
     @Test
@@ -132,12 +133,12 @@ public class SummaryDataWriterTest {
         model.setURL(new URL("file", "localhost", "test-file"));
 
         ByteArrayOutputStream output = new ByteArrayOutputStream();
-        SummaryDataWriter objectUnderTest = new SummaryDataWriter(output);
+        SummaryDataWriter objectUnderTest = new SummaryDataWriter();
 
-        objectUnderTest.write(model);
+        objectUnderTest.write(model, output, emptyMap());
 
         String csv = output.toString();
 
-        assertThat("avgPromotion", csv, Matchers.containsString("avgPromotion; " + memoryFormatter.formatToFormatted(2925).getValue() + "; K"));
+        assertThat("avgPromotion", csv, containsString("avgPromotion; " + memoryFormatter.formatToFormatted(2925).getValue() + "; K"));
     }
 }

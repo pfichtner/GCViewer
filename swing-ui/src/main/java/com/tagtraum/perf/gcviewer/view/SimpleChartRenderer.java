@@ -1,31 +1,30 @@
 package com.tagtraum.perf.gcviewer.view;
 
-import com.tagtraum.perf.gcviewer.model.GCModel;
-
-import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
+
+import javax.imageio.ImageIO;
 import javax.swing.JScrollPane;
 import javax.swing.SwingUtilities;
 
+import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
 
 public class SimpleChartRenderer {
 
-    public void render(GCModel model, FileOutputStream outputStream) throws IOException {
+    public void render(GCModel model, OutputStream outputStream) throws IOException {
         GCPreferences gcPreferences = new GCPreferences();
         gcPreferences.load();
         render(model, outputStream, gcPreferences);
     }
 
-    public void render(GCModel model, FileOutputStream outputStream, GCPreferences gcPreferences) throws IOException {
+    public void render(GCModel model, OutputStream outputStream, GCPreferences gcPreferences) throws IOException {
         Dimension d = new Dimension(gcPreferences.getWindowWidth(), gcPreferences.getWindowHeight());
 
         BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
