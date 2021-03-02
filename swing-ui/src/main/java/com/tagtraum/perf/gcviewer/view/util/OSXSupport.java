@@ -1,9 +1,5 @@
 package com.tagtraum.perf.gcviewer.view.util;
 
-import javax.swing.Action;
-
-import com.tagtraum.perf.gcviewer.util.LoggerHelper;
-
 import java.awt.Image;
 import java.awt.Window;
 import java.lang.reflect.InvocationHandler;
@@ -11,6 +7,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.Action;
+
+import com.tagtraum.perf.gcviewer.util.LoggerHelper;
 
 /**
  * Handles Mac OS X specific stuff.

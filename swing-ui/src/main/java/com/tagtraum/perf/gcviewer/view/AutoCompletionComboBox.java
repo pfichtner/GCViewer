@@ -1,12 +1,12 @@
 package com.tagtraum.perf.gcviewer.view;
 
 
-import javax.swing.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.JComboBox;
 
 import com.tagtraum.perf.gcviewer.view.model.RecentGCResourcesModel;
-
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 
 /**
  * AutoCompletionComboBox.

@@ -1,16 +1,17 @@
 package com.tagtraum.perf.gcviewer.ctrl.impl;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.logging.Logger;
+
+import javax.swing.SwingWorker;
+
 import com.tagtraum.perf.gcviewer.ctrl.GCModelLoader;
 import com.tagtraum.perf.gcviewer.log.TextAreaLogHandler;
 import com.tagtraum.perf.gcviewer.view.ChartPanelView;
 import com.tagtraum.perf.gcviewer.view.GCDocument;
 import com.tagtraum.perf.gcviewer.view.GCModelLoaderView;
 import com.tagtraum.perf.gcviewer.view.ModelChartImpl;
-
-import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.logging.Logger;
 
 /**
  * Controller for {@link GCDocument}.

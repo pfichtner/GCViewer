@@ -17,15 +17,16 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.math.DoubleData;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-import org.junit.Test;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 
 /**
  * <p>Test DataReaderJRockit1_5_0 implementation.</p>

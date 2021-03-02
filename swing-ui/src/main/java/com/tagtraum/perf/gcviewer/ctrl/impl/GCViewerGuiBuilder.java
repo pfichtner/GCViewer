@@ -1,21 +1,55 @@
 package com.tagtraum.perf.gcviewer.ctrl.impl;
 
-import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderController;
-import com.tagtraum.perf.gcviewer.ctrl.action.*;
-import com.tagtraum.perf.gcviewer.ctrl.impl.FileDropTargetListener.DropFlavor;
-import com.tagtraum.perf.gcviewer.util.LocalisationHelper;
-import com.tagtraum.perf.gcviewer.view.*;
-import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
-import com.tagtraum.perf.gcviewer.view.renderer.*;
-import com.tagtraum.perf.gcviewer.view.util.ImageHelper;
-import com.tagtraum.perf.gcviewer.view.util.OSXSupport;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Image;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.swing.Action;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
+import javax.swing.JDesktopPane;
+import javax.swing.JToggleButton;
+
+import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderController;
+import com.tagtraum.perf.gcviewer.ctrl.action.About;
+import com.tagtraum.perf.gcviewer.ctrl.action.Arrange;
+import com.tagtraum.perf.gcviewer.ctrl.action.Exit;
+import com.tagtraum.perf.gcviewer.ctrl.action.Export;
+import com.tagtraum.perf.gcviewer.ctrl.action.LicenseAction;
+import com.tagtraum.perf.gcviewer.ctrl.action.OSXFullScreen;
+import com.tagtraum.perf.gcviewer.ctrl.action.OpenFile;
+import com.tagtraum.perf.gcviewer.ctrl.action.OpenSeries;
+import com.tagtraum.perf.gcviewer.ctrl.action.OpenURL;
+import com.tagtraum.perf.gcviewer.ctrl.action.ReadmeAction;
+import com.tagtraum.perf.gcviewer.ctrl.action.Refresh;
+import com.tagtraum.perf.gcviewer.ctrl.action.Watch;
+import com.tagtraum.perf.gcviewer.ctrl.action.Zoom;
+import com.tagtraum.perf.gcviewer.ctrl.impl.FileDropTargetListener.DropFlavor;
+import com.tagtraum.perf.gcviewer.util.LocalisationHelper;
+import com.tagtraum.perf.gcviewer.view.ActionCommands;
+import com.tagtraum.perf.gcviewer.view.DesktopPane;
+import com.tagtraum.perf.gcviewer.view.GCViewerGui;
+import com.tagtraum.perf.gcviewer.view.GCViewerGuiMenuBar;
+import com.tagtraum.perf.gcviewer.view.GCViewerGuiToolBar;
+import com.tagtraum.perf.gcviewer.view.RecentGCResourcesMenu;
+import com.tagtraum.perf.gcviewer.view.StayOpenCheckBoxMenuItem;
+import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
+import com.tagtraum.perf.gcviewer.view.renderer.ConcurrentGcBegionEndRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.FullGCLineRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.GCRectanglesRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.GCTimesRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.IncLineRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.InitialMarkLevelRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.TotalHeapRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.TotalTenuredRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.TotalYoungRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.UsedHeapRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.UsedTenuredRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.UsedYoungRenderer;
+import com.tagtraum.perf.gcviewer.view.util.ImageHelper;
+import com.tagtraum.perf.gcviewer.view.util.OSXSupport;
 
 /**
  * This class is responsible for construction of {@link GCViewerGui}, whose construction is

@@ -1,6 +1,7 @@
 package com.tagtraum.perf.gcviewer.view.util;
 
 import java.io.File;
+
 import javax.swing.filechooser.FileFilter;
 
 /**

@@ -12,14 +12,15 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-import org.junit.Test;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 
 /**
  * Test logs generated specifically by JDK 1.8 G1 algorithm.

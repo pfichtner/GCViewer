@@ -5,13 +5,13 @@ import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 
-import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
+import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 
 /**
  * Test unified java logging ZGC algorithm in OpenJDK 11
@@ -70,7 +70,7 @@ public class TestDataReaderUJLZGC {
 
     @Test
     public void testGcAllPauseMarkStart() {
-        AbstractGCEvent<?> pauseMarkStartEvent = gcAllModel.getGCEvents().next().getPhases().get(0);
+        AbstractGCEvent<?> pauseMarkStartEvent = gcAllModel.getGCEvents().get(0).getPhases().get(0);
         UnittestHelper.testMemoryPauseEvent(pauseMarkStartEvent,
                 "Pause Mark Start",
                 AbstractGCEvent.Type.UJL_ZGC_PAUSE_MARK_START,
@@ -94,7 +94,7 @@ public class TestDataReaderUJLZGC {
 
     @Test
     public void testGcAllPauseMarkEnd() {
-        AbstractGCEvent<?> pauseMarkEndEvent = gcAllModel.getGCEvents().next().getPhases().get(1);
+        AbstractGCEvent<?> pauseMarkEndEvent = gcAllModel.getGCEvents().get(0).getPhases().get(1);
         UnittestHelper.testMemoryPauseEvent(pauseMarkEndEvent,
                 "Pause Mark End",
                 AbstractGCEvent.Type.UJL_ZGC_PAUSE_MARK_END,
@@ -166,7 +166,7 @@ public class TestDataReaderUJLZGC {
 
     @Test
     public void testGcAllPauseRelocateStart() {
-        AbstractGCEvent<?> pauseRelocateStartEvent = gcAllModel.getGCEvents().next().getPhases().get(2);
+        AbstractGCEvent<?> pauseRelocateStartEvent = gcAllModel.getGCEvents().get(0).getPhases().get(2);
         UnittestHelper.testMemoryPauseEvent(pauseRelocateStartEvent,
                 "Pause Relocate Start",
                 AbstractGCEvent.Type.UJL_ZGC_PAUSE_RELOCATE_START,

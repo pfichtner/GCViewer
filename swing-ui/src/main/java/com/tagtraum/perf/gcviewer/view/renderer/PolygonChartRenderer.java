@@ -1,15 +1,21 @@
 package com.tagtraum.perf.gcviewer.view.renderer;
 
+import java.awt.GradientPaint;
+import java.awt.Graphics2D;
+import java.awt.Paint;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.RenderingHints;
+import java.awt.Shape;
+import java.awt.geom.Point2D;
+import java.util.Arrays;
+
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.GcPattern;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.view.ChartRenderer;
 import com.tagtraum.perf.gcviewer.view.ModelChart;
 import com.tagtraum.perf.gcviewer.view.ModelChartImpl;
-
-import java.awt.*;
-import java.awt.geom.Point2D;
-import java.util.Arrays;
 
 /**
  * Superclass for components rendering model data as polygon, polyline

@@ -1,16 +1,19 @@
 package com.tagtraum.perf.gcviewer;
 
-import com.tagtraum.perf.gcviewer.exp.DataWriterType;
-import com.tagtraum.perf.gcviewer.model.GCResource;
-import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-import com.tagtraum.perf.gcviewer.model.GcResourceSeries;
-import org.junit.Test;
+import static org.hamcrest.Matchers.startsWith;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static org.hamcrest.Matchers.startsWith;
-import static org.junit.Assert.*;
+import org.junit.Test;
+
+import com.tagtraum.perf.gcviewer.exp.DataWriterType;
+import com.tagtraum.perf.gcviewer.model.GCResource;
+import com.tagtraum.perf.gcviewer.model.GcResourceFile;
+import com.tagtraum.perf.gcviewer.model.GcResourceSeries;
 
 /**
  * Tests the class {@link com.tagtraum.perf.gcviewer.GCViewerArgsParser} 

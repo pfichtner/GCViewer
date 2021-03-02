@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
@@ -15,8 +17,6 @@ import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
-
-import org.junit.Test;
 
 /**
  * Tests some cases for java 1.4 (using DataReaderSun1_6_0).
@@ -69,18 +69,18 @@ public class TestDataReaderSun1_4_0 {
         final DataReader reader = new DataReaderSun1_6_0(new GcResourceFile("byteArray"), in, GcLogType.SUN1_4);
         GCModel model = reader.read();
         assertEquals("model size", 6, model.size());
-        Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents();
-        AbstractGCEvent<?> event = i.next();
+        Iterator<AbstractGCEvent<?>> it = model.getStopTheWorldEvents().iterator();
+        AbstractGCEvent<?> event = it.next();
         assertEquals("event 1", event, event1);
-        event = i.next();
+        event = it.next();
         assertEquals("event 2", event, event2);
-        event = i.next();
+        event = it.next();
         assertEquals("event 3", event, event3);
-        event = i.next();
+        event = it.next();
         assertEquals("event 4", event, event4);
-        event = i.next();
+        event = it.next();
         assertEquals("event 5", event, event5);
-        event = i.next();
+        event = it.next();
         assertEquals("event 6", event, event6);
 
         assertEquals("running time", 5 + 1.0754938, model.getRunningTime(), 0.0001);
@@ -116,18 +116,18 @@ public class TestDataReaderSun1_4_0 {
         event6.getGeneration();
 
         assertEquals("model size", 12, model.size());
-        Iterator<GCEvent> i = model.getGCEvents();
-        AbstractGCEvent<GCEvent> event = i.next();
+        Iterator<GCEvent> it = model.getGCEvents().iterator();
+        AbstractGCEvent<GCEvent> event = it.next();
         assertEquals("event 1", event, event1);
-        event = i.next();
+        event = it.next();
         assertEquals("event 2", event, event2);
-        event = i.next();
+        event = it.next();
         assertEquals("event 3", event, event3);
-        event = i.next();
+        event = it.next();
         assertEquals("event 4", event, event4);
-        event = i.next();
+        event = it.next();
         assertEquals("event 5", event, event5);
-        event = i.next();
+        event = it.next();
         assertEquals("event 6", event, event6);
 
         assertEquals("throughput", 98.928592417159, model.getThroughput(), 0.00000000001);
@@ -169,7 +169,7 @@ public class TestDataReaderSun1_4_0 {
         event4.getGeneration();
 
         assertEquals("model.size()", 4, model.size());
-        Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents();
+        Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents().iterator();
         AbstractGCEvent<?> event = i.next();
         assertEquals("event 1", event1, event);
         event = i.next();

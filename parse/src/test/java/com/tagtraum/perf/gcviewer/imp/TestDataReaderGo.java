@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
-
-import org.junit.Test;
 
 public class TestDataReaderGo {
 

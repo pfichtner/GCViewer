@@ -15,7 +15,6 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -23,7 +22,6 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
@@ -241,11 +239,7 @@ public class DataReaderFacade {
         private GCModel mergeModels(List<GCModel> models) {
             GCModel mergedModel = models.get(0);
             for (int i = 1; i < models.size(); i++) {
-                GCModel model = models.get(i);
-                Iterator<AbstractGCEvent<?>> iterator = model.getEvents();
-                while (iterator.hasNext()) {
-                    mergedModel.add(iterator.next());
-                }
+                models.get(i).getEvents().forEach(mergedModel::add);
             }
 
             // Use URL of last contained file. In case of a refresh this is the only file that can have changed

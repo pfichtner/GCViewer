@@ -1,12 +1,12 @@
 package com.tagtraum.perf.gcviewer;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+
 import com.tagtraum.perf.gcviewer.imp.DataReader;
 import com.tagtraum.perf.gcviewer.imp.DataReaderFactory;
 import com.tagtraum.perf.gcviewer.math.IntData;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-
-import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * Created by IntelliJ IDEA.

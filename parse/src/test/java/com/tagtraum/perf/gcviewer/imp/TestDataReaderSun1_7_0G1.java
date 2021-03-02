@@ -12,16 +12,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.math.DoubleData;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 import com.tagtraum.perf.gcviewer.model.ConcurrentGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-import org.junit.Test;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 
 public class TestDataReaderSun1_7_0G1 {
 
@@ -66,18 +67,18 @@ public class TestDataReaderSun1_7_0G1 {
         GCModel model = reader.read();
 
         assertEquals("gc pause", 0.14482200, model.getPause().getMax(), 0.000000001);
-        GCEvent heap = (GCEvent) model.getEvents().next();
+        GCEvent heap = (GCEvent) model.getEvents().get(0);
         assertEquals("heap before", 1105*1024, heap.getPreUsed());
         assertEquals("heap after", 380*1024, heap.getPostUsed());
         assertEquals("heap", 2*1024*1024, heap.getTotal());
 
-        GCEvent young = model.getGCEvents().next().getYoung();
+        GCEvent young = model.getGCEvents().get(0).getYoung();
         assertNotNull("young", young);
         assertEquals("young before", 1024*1024, young.getPreUsed());
         assertEquals("young after", 128*1024, young.getPostUsed());
         assertEquals("young total", (896+128)*1024, young.getTotal());
 
-        GCEvent tenured = model.getGCEvents().next().getTenured();
+        GCEvent tenured = model.getGCEvents().get(0).getTenured();
         assertNotNull("tenured", tenured);
         assertEquals("tenured before", (1105-1024)*1024, tenured.getPreUsed());
         assertEquals("tenured after", (380-128)*1024, tenured.getPostUsed());
@@ -97,7 +98,7 @@ public class TestDataReaderSun1_7_0G1 {
         GCModel model = reader.read();
 
         assertEquals("gc pause", 0.14482200, model.getPause().getMax(), 0.000000001);
-        GCEvent heap = (GCEvent) model.getEvents().next();
+        GCEvent heap = (GCEvent) model.getEvents().get(0);
         assertEquals("heap", 1105*1024, heap.getPreUsed());
         assertEquals("heap", 380*1024, heap.getPostUsed());
         assertEquals("heap", 2048*1024, heap.getTotal());
@@ -119,7 +120,7 @@ public class TestDataReaderSun1_7_0G1 {
         GCModel model = reader.read();
 
         assertEquals("gc pause", 0.158757, model.getPause().getMax(), 0.000000001);
-        GCEvent heap = (GCEvent) model.getEvents().next();
+        GCEvent heap = (GCEvent) model.getEvents().get(0);
         assertEquals("heap", 65*1024*1024, heap.getPreUsed());
         // test parsing of decimal values
         assertEquals("heap", 64.3*1024*1024, heap.getPostUsed(), 1e2);
@@ -143,7 +144,7 @@ public class TestDataReaderSun1_7_0G1 {
         GCModel model = reader.read();
 
         assertEquals("gc pause", 0.077938, model.getPause().getMax(), 0.000000001);
-        GCEvent heap = (GCEvent) model.getEvents().next();
+        GCEvent heap = (GCEvent) model.getEvents().get(0);
         assertEquals("heap", 32*1024, heap.getPreUsed());
         // test parsing of decimal values
         assertEquals("heap", 7136, (double)heap.getPostUsed(), 1e2);
@@ -202,7 +203,7 @@ public class TestDataReaderSun1_7_0G1 {
 
         assertEquals("number of events", 3, model.size());
         assertEquals("number of warnings", 0, handler.getCount());
-        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().next().getTypeAsString());
+        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().get(0).getTypeAsString());
         assertEquals("number of pauses", 2, model.getPause().getN());
         assertEquals("gc pause max", 0.28031200, model.getPause().getMax(), 0.000000001);
         assertEquals("gc memory", 20701*1024 - 20017*1024, model.getFreedMemoryByGC().getMax());
@@ -217,7 +218,7 @@ public class TestDataReaderSun1_7_0G1 {
         GCModel model = reader.read();
 
         assertEquals("nummber of events", 2, model.size());
-        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().next().getTypeAsString());
+        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().get(0).getTypeAsString());
         assertEquals("number of pauses", 1, model.getPause().getN());
         assertEquals("gc pause sum", 0.08894900, model.getPause().getSum(), 0.000000001);
         assertEquals("gc memory", 29672*1024 - 28733*1024, model.getFreedMemoryByGC().getMax());
@@ -652,7 +653,7 @@ public class TestDataReaderSun1_7_0G1 {
         GCModel model = reader.read();
 
         assertThat("gc pause", model.getFullGCPause().getMax(), closeTo(0.0434091, 0.000000001));
-        GCEvent heap = (GCEvent) model.getEvents().next();
+        GCEvent heap = (GCEvent) model.getEvents().get(0);
         assertThat("heap", heap.getTotal(), is(128*1024));
 
         assertThat("number of errors", handler.getCount(), is(0));

@@ -4,13 +4,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.InputStream;
 
+import org.junit.Ignore;
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
-
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
  *

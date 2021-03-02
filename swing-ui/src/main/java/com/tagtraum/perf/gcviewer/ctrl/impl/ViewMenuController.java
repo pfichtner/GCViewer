@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.logging.Logger;
+
 import javax.swing.JCheckBoxMenuItem;
 
 import com.tagtraum.perf.gcviewer.view.GCViewerGui;

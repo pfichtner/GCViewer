@@ -17,7 +17,8 @@ import com.tagtraum.perf.gcviewer.imp.DataReaderException;
 import com.tagtraum.perf.gcviewer.imp.DataReaderFacade;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
-import com.tagtraum.perf.gcviewer.view.SimpleChartRenderer;
+import com.tagtraum.perf.gcviewer.view.SimplePngChartRenderer;
+import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
 
 /**
  * Main class of GCViewer. Parses command line parameters if there are any and either remains
@@ -105,8 +106,9 @@ public class GCViewer {
     }
 
     private void renderChart(GCModel model, String chartFilePath) throws IOException {
-        SimpleChartRenderer renderer = new SimpleChartRenderer();
-        renderer.render(model, new FileOutputStream(new File(chartFilePath)));
+        try (OutputStream outputStream = new FileOutputStream(new File(chartFilePath))) {
+			new SimplePngChartRenderer().render(model, outputStream, new GCPreferences());
+		}
     }
 
     private static void usage() {

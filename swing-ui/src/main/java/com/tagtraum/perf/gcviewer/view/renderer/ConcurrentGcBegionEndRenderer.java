@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.RenderingHints;
-import java.util.Iterator;
 
 import com.tagtraum.perf.gcviewer.model.ConcurrentGCEvent;
 import com.tagtraum.perf.gcviewer.view.ChartRenderer;
@@ -34,17 +33,15 @@ public class ConcurrentGcBegionEndRenderer extends ChartRenderer {
         final int height = getHeight();
         int lastScaledTimestampBegin = Integer.MIN_VALUE;
         int lastScaledTimestampEnd = Integer.MIN_VALUE;
-        for (Iterator<ConcurrentGCEvent> i = getModelChart().getModel().getConcurrentGCEvents(); i.hasNext();) {
-            final ConcurrentGCEvent event = i.next();
+        for (ConcurrentGCEvent event : getModelChart().getModel().getConcurrentGCEvents()) {
             if (event.isConcurrentCollectionStart()) {
-                final int scaledTimestamp = (int) (scaleFactor * (event.getTimestamp() - getModelChart().getModel().getFirstPauseTimeStamp() - event.getPause()));
+                int scaledTimestamp = (int) (scaleFactor * (event.getTimestamp() - getModelChart().getModel().getFirstPauseTimeStamp() - event.getPause()));
                 if (scaledTimestamp != lastScaledTimestampBegin) {
                     g2d.setPaint(CONCURRENT_COLLECTION_BEGIN);
                     g2d.drawLine(scaledTimestamp, 0, scaledTimestamp, height);
                     lastScaledTimestampBegin = scaledTimestamp;
                 }
-            }
-            else if (event.isConcurrentCollectionEnd()) {
+            } else if (event.isConcurrentCollectionEnd()) {
                 final int scaledTimestamp = (int) (scaleFactor * (event.getTimestamp() - getModelChart().getModel().getFirstPauseTimeStamp()));
                 if (scaledTimestamp != lastScaledTimestampEnd) {
                     g2d.setPaint(CONCURRENT_COLLECTION_END);

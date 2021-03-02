@@ -13,6 +13,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
@@ -20,8 +22,6 @@ import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.util.DateHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
-
-import org.junit.Test;
 
 public class TestDataReaderSun1_6_0G1 {
     
@@ -78,7 +78,7 @@ public class TestDataReaderSun1_6_0G1 {
         assertEquals("gc pause", 0.0032067, model.getGCPause().getMax(), 0.000001);
         assertEquals("datestamp", 
                 ZonedDateTime.parse("2012-02-29T13:41:00.721+0100", dateTimeFormatter),
-                model.getGCEvents().next().getDatestamp());
+                model.getGCEvents().get(0).getDatestamp());
     }
     
     @Test
@@ -120,7 +120,7 @@ public class TestDataReaderSun1_6_0G1 {
         GCModel model = reader.read();
 
         assertEquals("count", 2, model.size());
-        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().next().getTypeAsString());
+        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().get(0).getTypeAsString());
         assertEquals("gc pause", 0.0187031, model.getGCPause().getMax(), 0.000001);
     }
 
@@ -164,7 +164,7 @@ public class TestDataReaderSun1_6_0G1 {
         GCModel model = reader.read();
         
         assertEquals("nummber of events", 2, model.size());
-        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().next().getTypeAsString());
+        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().get(0).getTypeAsString());
         assertEquals("number of pauses", 1, model.getPause().getN());
         assertEquals("gc pause sum", 0.00430038, model.getPause().getSum(), 0.000000001);
     }
@@ -180,7 +180,7 @@ public class TestDataReaderSun1_6_0G1 {
         GCModel model = reader.read();
         
         assertEquals("nummber of events", 2, model.size());
-        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().next().getTypeAsString());
+        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().get(0).getTypeAsString());
         assertEquals("number of pauses", 1, model.getPause().getN());
         assertEquals("gc pause sum", 0.00178520, model.getPause().getSum(), 0.000000001);
     }
@@ -237,7 +237,7 @@ public class TestDataReaderSun1_6_0G1 {
         GCModel model = reader.read();
         
         assertEquals("nummber of events", 2, model.size());
-        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().next().getTypeAsString());
+        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().get(0).getTypeAsString());
         assertEquals("number of pauses", 1, model.getPause().getN());
         assertEquals("gc pause sum", 0.00316185, model.getPause().getSum(), 0.000000001);
         assertEquals("gc memory", 254*1024 - 170*1024, model.getFreedMemoryByGC().getMax());
@@ -253,7 +253,7 @@ public class TestDataReaderSun1_6_0G1 {
         GCModel model = reader.read();
         
         assertEquals("nummber of events", 2, model.size());
-        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().next().getTypeAsString());
+        assertEquals("concurrent event type", Type.G1_CONCURRENT_MARK_START.toString(), model.getConcurrentGCEvents().get(0).getTypeAsString());
         assertEquals("number of pauses", 1, model.getPause().getN());
         assertEquals("gc pause sum", 0.00588343, model.getPause().getSum(), 0.000000001);
         assertEquals("gc memory", 255*1024 - 197*1024, model.getFreedMemoryByGC().getMax());
@@ -329,7 +329,7 @@ public class TestDataReaderSun1_6_0G1 {
         assertThat("number of errors", handler.getCount(), is(0));
         
         assertThat("concurrent type name", 
-                model.getConcurrentGCEvents().next().getTypeAsString(), 
+                model.getConcurrentGCEvents().get(0).getTypeAsString(), 
                 equalTo("GC concurrent-mark-start"));
     }
 

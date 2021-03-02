@@ -1,7 +1,5 @@
 package com.tagtraum.perf.gcviewer.ctrl.impl;
 
-import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderController;
-
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -12,6 +10,8 @@ import java.awt.dnd.DropTargetDropEvent;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+
+import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderController;
 
 /**
  * DragAndDrop Listener implementation to support add / open of files using drag and drop.

@@ -6,12 +6,12 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
-
-import org.junit.Test;
 
 /**
  * Tests some cases for java 1.5 (using DataReaderSun1_6_0).

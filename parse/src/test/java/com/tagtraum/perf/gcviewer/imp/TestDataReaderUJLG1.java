@@ -11,16 +11,17 @@ import java.io.InputStream;
 import java.util.Iterator;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Generation;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper;
-import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 import com.tagtraum.perf.gcviewer.model.GCEventUJL;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-import org.junit.Test;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
 
 /**
  * Tests unified jvm logging parser for cms gc events.
@@ -123,7 +124,7 @@ public class TestDataReaderUJLG1 {
                 1024 * 14, 1024 * 12, 1024 * 128,
                 Generation.YOUNG,
                 false);
-        assertThat("young heap before", event1.details().next().getPreUsed(), is(1024 * 14));
+        assertThat("young heap before", event1.details().get(0).getPreUsed(), is(1024 * 14));
 
         // GC(3) Pause Initial Mark
         AbstractGCEvent<?> event2 = model.get(5);
@@ -180,14 +181,14 @@ public class TestDataReaderUJLG1 {
                 Generation.YOUNG,
                 false);
         assertThat("typeAsString", youngEvent.getTypeAsString(), equalTo("Pause Young (G1 Evacuation Pause); To-space exhausted; Eden regions:; Survivor regions:; Old regions:; Humongous regions:; Metaspace:"));
-        Iterator<AbstractGCEvent<?>> iterator = (Iterator<AbstractGCEvent<?>>) youngEvent.details();
+        Iterator<AbstractGCEvent<?>> it =  (Iterator<AbstractGCEvent<?>>) youngEvent.details().iterator();
         // skip "To-space exhausted"
-        iterator.next();
-        testHeapSizing(iterator.next(), "eden", 0, 0, 0);
-        testHeapSizing(iterator.next(), "survivor", 0, 0, 0);
-        testHeapSizing(iterator.next(), "old", 0, 0, 0);
-        testHeapSizing(iterator.next(), "humongous", 0, 0, 0);
-        testHeapSizing(iterator.next(), "metaspace", 3648, 3648, 1056768);
+        it.next();
+        testHeapSizing(it.next(), "eden", 0, 0, 0);
+        testHeapSizing(it.next(), "survivor", 0, 0, 0);
+        testHeapSizing(it.next(), "old", 0, 0, 0);
+        testHeapSizing(it.next(), "humongous", 0, 0, 0);
+        testHeapSizing(it.next(), "metaspace", 3648, 3648, 1056768);
 
         GCEventUJL gcEventUJL = (GCEventUJL)youngEvent;
         testHeapSizing(gcEventUJL.getYoung(), "young", 0, 0, 0);

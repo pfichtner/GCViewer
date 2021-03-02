@@ -5,9 +5,10 @@ import static org.hamcrest.Matchers.is;
 import java.net.MalformedURLException;
 import java.util.Arrays;
 
-import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import org.junit.Assert;
 import org.junit.Test;
+
+import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 
 /**
  * Test class {@link RecentGCResourcesModel}.

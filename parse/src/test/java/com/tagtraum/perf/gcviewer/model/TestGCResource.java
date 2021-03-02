@@ -1,13 +1,14 @@
 package com.tagtraum.perf.gcviewer.model;
 
-import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
-import org.junit.Test;
+import static org.hamcrest.Matchers.is;
+import static org.junit.Assert.assertThat;
 
 import java.io.File;
 import java.io.RandomAccessFile;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import org.junit.Test;
+
+import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 
 /**
  * @author <a href="mailto:gcviewer@gmx.ch">Joerg Wuethrich</a> <p>created on: 19.08.2015</p>

@@ -4,11 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThat;
 
-import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.ExtendedType;
-import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.ExtendedType;
+import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 
 /**
  * Tests for class {@link GCEvent}.
@@ -39,9 +40,9 @@ public class TestGcEvent {
     @Test
     public void testAddGc() {
         // when GC was parsed, only "young" information really is present; "tenured" must be inferred
-        assertEquals("number of details", 1, gcEvent.details.size());
+        assertEquals("number of details", 1, gcEvent.details().size());
         
-        GCEvent defNewEvent = gcEvent.details().next();
+        GCEvent defNewEvent = gcEvent.details().get(0);
         assertEquals("type", Type.DEF_NEW.getName(), defNewEvent.getExtendedType().getName());
         assertEquals("getYoung", defNewEvent, gcEvent.getYoung());
         
@@ -52,13 +53,13 @@ public class TestGcEvent {
     @Test
     public void testAddFullGc() {
         // when Full GC was parsed, "young" information was deferred, other were parsed.
-        assertEquals("number of details", 2, fullGcEvent.details.size());
+        assertEquals("number of details", 2, fullGcEvent.details().size());
         
-        GCEvent tenured = fullGcEvent.details.get(0);
+        GCEvent tenured = fullGcEvent.details().get(0);
         assertEquals("type", Type.TENURED.getName(), tenured.getExtendedType().getName());
         assertEquals("getTenured", tenured, fullGcEvent.getTenured());
         
-        GCEvent perm = fullGcEvent.details.get(1);
+        GCEvent perm = fullGcEvent.details().get(1);
         assertEquals("type", Type.PERM.getName(), perm.getExtendedType().getName());
         assertEquals("getPerm", perm, fullGcEvent.getPerm());
         

@@ -3,12 +3,11 @@ package com.tagtraum.perf.gcviewer.view.renderer;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Polygon;
-import java.util.Iterator;
 
-import com.tagtraum.perf.gcviewer.view.ModelChart;
-import com.tagtraum.perf.gcviewer.view.ModelChartImpl;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.view.ModelChart;
+import com.tagtraum.perf.gcviewer.view.ModelChartImpl;
 
 /**
  * Renders all stop the world event pauses.
@@ -29,8 +28,7 @@ public class GCTimesRenderer extends PolygonChartRenderer {
 
     public Polygon computePolygon(ModelChart modelChart, GCModel model) {
         ScaledPolygon polygon = createTimeScaledPolygon();
-        for (Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents(); i.hasNext();) {
-            AbstractGCEvent<?> event = i.next();
+        for (AbstractGCEvent<?> event : model.getStopTheWorldEvents()) {
             polygon.addPoint(event.getTimestamp() - model.getFirstPauseTimeStamp(), event.getPause());
         }
         // dummy point to make the polygon complete

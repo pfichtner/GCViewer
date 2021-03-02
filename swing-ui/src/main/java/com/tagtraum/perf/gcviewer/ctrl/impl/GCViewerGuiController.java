@@ -1,5 +1,17 @@
 package com.tagtraum.perf.gcviewer.ctrl.impl;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
+
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JInternalFrame;
+import javax.swing.SwingUtilities;
+
 import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderController;
 import com.tagtraum.perf.gcviewer.ctrl.action.OpenFile;
 import com.tagtraum.perf.gcviewer.model.GCResource;
@@ -9,15 +21,6 @@ import com.tagtraum.perf.gcviewer.view.GCViewerGui;
 import com.tagtraum.perf.gcviewer.view.GCViewerGuiMenuBar;
 import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
 import com.tagtraum.perf.gcviewer.view.model.GCResourceGroup;
-
-import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map.Entry;
 
 /**
  * Main controller class of GCViewer. 

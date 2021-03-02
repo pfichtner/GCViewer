@@ -3,7 +3,6 @@ package com.tagtraum.perf.gcviewer.view.renderer;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Polygon;
-import java.util.Iterator;
 
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
@@ -29,8 +28,7 @@ public class InitialMarkLevelRenderer extends PolygonChartRenderer {
 
     public Polygon computePolygon(ModelChart modelChart, GCModel model) {
         ScaledPolygon polygon = createMemoryScaledPolygon();
-        for (Iterator<GCEvent> i = model.getGCEvents(); i.hasNext();) {
-            GCEvent event = i.next();
+        for (GCEvent event : model.getGCEvents()) {
             if (event.isInitialMark()) {
                 polygon.addPoint(event.getTimestamp() - model.getFirstPauseTimeStamp(), event.getPreUsed());
             }

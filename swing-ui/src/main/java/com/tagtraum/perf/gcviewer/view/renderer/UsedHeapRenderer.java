@@ -3,7 +3,6 @@ package com.tagtraum.perf.gcviewer.view.renderer;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Polygon;
-import java.util.Iterator;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
@@ -29,8 +28,7 @@ public class UsedHeapRenderer extends PolygonChartRenderer {
 
     public Polygon computePolygon(ModelChart modelChart, GCModel model) {
         ScaledPolygon polygon = createMemoryScaledPolygon();
-        for (Iterator<AbstractGCEvent<?>> i = model.getEvents(); i.hasNext();) {
-            AbstractGCEvent<?> event = i.next();
+        for (AbstractGCEvent<?> event : model.getEvents()) {
             // e.g. "GC remark" of G1 algorithm does not contain memory information
             if (event.getTotal() > 0) {
                 final double timestamp = event.getTimestamp() - model.getFirstPauseTimeStamp() - event.getPause();

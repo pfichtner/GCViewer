@@ -11,6 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.NumberFormat;
 
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.exp.impl.SummaryDataWriter;
 import com.tagtraum.perf.gcviewer.imp.DataReader;
 import com.tagtraum.perf.gcviewer.imp.DataReaderSun1_6_0;
@@ -20,9 +23,6 @@ import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.util.MemoryFormat;
-
-import org.junit.BeforeClass;
-import org.junit.Test;
 
 /**
  * Test implementation of {@link SummaryDataWriter}

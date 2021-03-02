@@ -5,7 +5,6 @@ import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
-import java.util.Iterator;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.VmOperationEvent;
@@ -51,8 +50,7 @@ public class GCRectanglesRenderer extends ChartRenderer {
         int leftBoundary = clip.x;
         int rightBoundary = clip.x + clip.width;
 
-        for (Iterator<AbstractGCEvent<?>> i = getModelChart().getModel().getStopTheWorldEvents(); i.hasNext() && lastX < rightBoundary;) {
-            AbstractGCEvent<?> event = i.next();
+        for (AbstractGCEvent<?> event : getModelChart().getModel().getStopTheWorldEvents()) {
             double pause = event.getPause();
             int width = (int) Math.max(Math.abs(scaleFactor * pause), 1.0d);
             int height = (int) (pause * scaledHeight);

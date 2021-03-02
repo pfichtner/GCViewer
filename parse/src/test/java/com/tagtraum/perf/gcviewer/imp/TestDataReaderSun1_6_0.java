@@ -13,6 +13,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
@@ -20,8 +22,6 @@ import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.util.DateHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
-
-import org.junit.Test;
 
 public class TestDataReaderSun1_6_0 {
 
@@ -68,7 +68,7 @@ public class TestDataReaderSun1_6_0 {
         DataReader reader = new DataReaderSun1_6_0(new GcResourceFile("byteArray"), in, GcLogType.SUN1_6);
         GCModel model = reader.read();
 
-        assertEquals("gc type", "GC; ParNew (promotion failed); CMS; CMS Perm", model.getFullGCEvents().next().getTypeAsString());
+        assertEquals("gc type", "GC; ParNew (promotion failed); CMS; CMS Perm", model.getFullGCEvents().get(0).getTypeAsString());
     }
 
 
@@ -141,7 +141,7 @@ public class TestDataReaderSun1_6_0 {
 
 		assertEquals("GC count", 1, model.size());
 
-		assertEquals("gc pause", 5.3, model.getConcurrentGCEvents().next().getPause(), 0.001);
+		assertEquals("gc pause", 5.3, model.getConcurrentGCEvents().get(0).getPause(), 0.001);
 	}
 
     @Test
@@ -154,7 +154,7 @@ public class TestDataReaderSun1_6_0 {
 
 		assertEquals("GC count", 1, model.size());
 
-		assertEquals("gc pause", 3.849, model.getConcurrentGCEvents().next().getPause(), 0.0001);
+		assertEquals("gc pause", 3.849, model.getConcurrentGCEvents().get(0).getPause(), 0.0001);
 	}
 
     @Test
@@ -863,7 +863,7 @@ public class TestDataReaderSun1_6_0 {
 
         assertEquals("count", 1, model.size());
         assertEquals("main type", "GC", model.get(0).getExtendedType().getName());
-        assertEquals("detail type", "PSYoungGen", model.get(0).details().next().getExtendedType().getName());
+        assertEquals("detail type", "PSYoungGen", model.get(0).details().get(0).getExtendedType().getName());
     }
 
     @Test
@@ -877,7 +877,7 @@ public class TestDataReaderSun1_6_0 {
 
         assertEquals("count", 1, model.size());
         assertEquals("main type", "GC--", model.get(0).getExtendedType().getName());
-        assertEquals("detail type", "PSYoungGen", model.get(0).details().next().getExtendedType().getName());
+        assertEquals("detail type", "PSYoungGen", model.get(0).details().get(0).getExtendedType().getName());
     }
 
     @Test

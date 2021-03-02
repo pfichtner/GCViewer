@@ -12,14 +12,14 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.concurrent.ExecutionException;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.imp.DataReaderException;
 import com.tagtraum.perf.gcviewer.imp.DataReaderFacade;
 import com.tagtraum.perf.gcviewer.math.DoubleData;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
-
-import org.junit.Test;
 
 /**
  * Specific tests for {@link GCModel} implementation.

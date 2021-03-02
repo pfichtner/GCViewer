@@ -3,7 +3,6 @@ package com.tagtraum.perf.gcviewer.view.renderer;
 import java.awt.Color;
 import java.awt.Paint;
 import java.awt.Polygon;
-import java.util.Iterator;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
@@ -30,8 +29,7 @@ public class UsedTenuredRenderer extends PolygonChartRenderer {
     @Override
     public Polygon computePolygon(ModelChart modelChart, GCModel model) {
         ScaledPolygon polygon = createMemoryScaledPolygon();
-        for (Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents(); i.hasNext();) {
-            AbstractGCEvent<?> abstractGCEvent = i.next();
+        for (AbstractGCEvent<?> abstractGCEvent : model.getStopTheWorldEvents()) {
             if (abstractGCEvent instanceof GCEvent) {
                 GCEvent event = (GCEvent) abstractGCEvent;
                 GCEvent tenuredEvent = event.getTenured();

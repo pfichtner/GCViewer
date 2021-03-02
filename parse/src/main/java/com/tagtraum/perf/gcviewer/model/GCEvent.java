@@ -1,6 +1,5 @@
 package com.tagtraum.perf.gcviewer.model;
 
-import java.util.Iterator;
 import java.util.Objects;
 
 import com.tagtraum.perf.gcviewer.util.DateHelper;
@@ -66,12 +65,8 @@ public class GCEvent extends AbstractGCEvent<GCEvent> {
         tenured = null;
         perm = null;
 
-        GCEvent clonedEvent = (GCEvent)super.clone();
-
-        Iterator<GCEvent> eventIterator = clonedEvent.details();
-        while (eventIterator.hasNext()) {
-            clonedEvent.setReferencedEvent(eventIterator.next());
-        }
+		GCEvent clonedEvent = (GCEvent) super.clone();
+		clonedEvent.details().forEach(clonedEvent::setReferencedEvent);
 
         young = events[0];
         tenured = events[1];
@@ -148,12 +143,11 @@ public class GCEvent extends AbstractGCEvent<GCEvent> {
             sb.append(" GC(").append(getNumber()).append(")");
         }
         sb.append(" [").append(getExtendedType() != null ? getExtendedType().getName() : ExtendedType.UNDEFINED);
-        if (details != null) {
-            sb.append(' ');
-            for (AbstractGCEvent event : details) {
-                event.toStringBuffer(sb);
-            }
-            sb.append(' ');
+        
+        if (!details().isEmpty()) {
+			sb.append(' ');
+			details().forEach(event -> event.toStringBuffer(sb));
+			sb.append(' ');
         }
         else {
             sb.append(": ");

@@ -1,10 +1,10 @@
 package com.tagtraum.perf.gcviewer.ctrl;
 
-import com.tagtraum.perf.gcviewer.model.GCResource;
-import com.tagtraum.perf.gcviewer.view.GCDocument;
-
 import java.io.File;
 import java.util.List;
+
+import com.tagtraum.perf.gcviewer.model.GCResource;
+import com.tagtraum.perf.gcviewer.view.GCDocument;
 
 /**
  * Controller class for {@link GCModelLoader}.

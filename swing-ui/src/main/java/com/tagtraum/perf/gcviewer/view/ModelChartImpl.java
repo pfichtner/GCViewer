@@ -1,16 +1,14 @@
 package com.tagtraum.perf.gcviewer.view;
 
-import com.tagtraum.perf.gcviewer.model.GCModel;
-import com.tagtraum.perf.gcviewer.util.TimeFormat;
-import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
-import com.tagtraum.perf.gcviewer.view.model.PropertyChangeEventConsts;
-import com.tagtraum.perf.gcviewer.view.renderer.*;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.event.SwingPropertyChangeSupport;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Rectangle;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseAdapter;
@@ -23,6 +21,33 @@ import java.text.NumberFormat;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.logging.Logger;
+
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+import javax.swing.JViewport;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.SwingPropertyChangeSupport;
+
+import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.util.TimeFormat;
+import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
+import com.tagtraum.perf.gcviewer.view.model.PropertyChangeEventConsts;
+import com.tagtraum.perf.gcviewer.view.renderer.ConcurrentGcBegionEndRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.FullGCLineRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.GCRectanglesRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.GCTimesRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.IncLineRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.InitialMarkLevelRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.PolygonChartRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.TotalHeapRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.TotalTenuredRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.TotalYoungRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.UsedHeapRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.UsedTenuredRenderer;
+import com.tagtraum.perf.gcviewer.view.renderer.UsedYoungRenderer;
 
 /**
  * Graphical chart of the gc file. It contains the chart and all rulers surrounding it but not

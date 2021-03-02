@@ -1,14 +1,15 @@
 package com.tagtraum.perf.gcviewer.model;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import org.hamcrest.Matchers;
+import org.junit.Test;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.ExtendedType;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Generation;
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
-import org.hamcrest.Matchers;
-import org.junit.Test;
 
 /**
  * Tests for methods written in {@link AbstractGCEvent}.

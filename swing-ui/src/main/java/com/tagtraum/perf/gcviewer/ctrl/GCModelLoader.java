@@ -1,9 +1,9 @@
 package com.tagtraum.perf.gcviewer.ctrl;
 
-import com.tagtraum.perf.gcviewer.model.GCResource;
-
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+
+import com.tagtraum.perf.gcviewer.model.GCResource;
 
 /**
  * Loads the model in a background thread (progress can be tracked using propertyChangeListeners).

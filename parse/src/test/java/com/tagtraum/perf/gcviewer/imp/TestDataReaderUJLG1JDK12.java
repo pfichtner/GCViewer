@@ -9,10 +9,11 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-import org.junit.Test;
 
 /**
  * Test unified java logging G1 algorithm in OpenJDK 12

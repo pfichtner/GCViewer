@@ -1,14 +1,14 @@
 package com.tagtraum.perf.gcviewer.model;
 
+import static org.hamcrest.Matchers.closeTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent.Type;
-
-import static org.hamcrest.Matchers.closeTo;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThat;
 
 public class TestGCEventUJL {
     private GCEventUJL parentGCEvent;

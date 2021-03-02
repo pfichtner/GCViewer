@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Paint;
 import java.awt.Polygon;
-import java.util.Iterator;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
@@ -34,8 +33,7 @@ public class TotalHeapRenderer extends PolygonChartRenderer {
         ScaledPolygon polygon = createMemoryScaledPolygon();
         polygon.addPoint(0.0d, 0.0d);
         int lastTotal = 0;
-        for (Iterator<AbstractGCEvent<?>> i = model.getEvents(); i.hasNext();) {
-            AbstractGCEvent<?> event = i.next();
+        for (AbstractGCEvent<?> event : model.getEvents()) {
             if (event.getTotal() > 0) {
                 // there are events that don't have a heap size associated (like "GC remark" of G1)
                 // -> skip them

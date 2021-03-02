@@ -1,16 +1,17 @@
 package com.tagtraum.perf.gcviewer.imp;
 
-import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
-import com.tagtraum.perf.gcviewer.model.GCEvent;
-import com.tagtraum.perf.gcviewer.model.GCModel;
-import com.tagtraum.perf.gcviewer.model.GcResourceFile;
-import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Test;
+
+import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
+import com.tagtraum.perf.gcviewer.model.GCEvent;
+import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 
 /**
  *
@@ -34,14 +35,14 @@ public class TestDataReaderSun1_3_1 {
         DataReader reader = new DataReaderSun1_3_1(new GcResourceFile("byteArray"), in, GcLogType.SUN1_3_1);
         GCModel model = reader.read();
         assertTrue(model.size() == 4);
-        Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents();
-        AbstractGCEvent<?> event = i.next();
+        Iterator<AbstractGCEvent<?>> it = model.getStopTheWorldEvents().iterator();
+        AbstractGCEvent<?> event = it.next();
         assertEquals(event, event1);
-        event = i.next();
+        event = it.next();
         assertEquals(event, event2);
-        event = i.next();
+        event = it.next();
         assertEquals(event, event3);
-        event = i.next();
+        event = it.next();
         assertEquals(event, event4);
 
         assertEquals("throughput", 90.17011554119, model.getThroughput(), 0.00000001);

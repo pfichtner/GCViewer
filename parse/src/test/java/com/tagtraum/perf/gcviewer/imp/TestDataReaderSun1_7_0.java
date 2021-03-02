@@ -13,6 +13,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
 import java.util.logging.Level;
 
+import org.junit.Test;
+
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
 import com.tagtraum.perf.gcviewer.model.GCModel;
@@ -21,8 +23,6 @@ import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.util.DateHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper;
 import com.tagtraum.perf.gcviewer.view.UnittestHelper.Folder;
-
-import org.junit.Test;
 
 /**
  * Tests for logs generated specifically by jdk 1.7.0.
@@ -233,9 +233,9 @@ public class TestDataReaderSun1_7_0 {
         GCModel model = reader.read();
 
         assertThat("GC count", model.size(), is(2));
-        Iterator<GCEvent> eventIterator = model.getGCEvents();
-        GCEvent event1 = eventIterator.next();
-        GCEvent event2 = eventIterator.next();
+        Iterator<GCEvent> it = model.getGCEvents().iterator();
+        GCEvent event1 = it.next();
+        GCEvent event2 = it.next();
         assertThat("type name [1]", event1.getTypeAsString(), equalTo("GC; ParNew"));
         assertThat("GC pause [1]", event1.getPause(), closeTo(0.0038018, 0.00000001));
         assertThat("type name [2]", event2.getTypeAsString(), equalTo("GC; CMS-initial-mark"));

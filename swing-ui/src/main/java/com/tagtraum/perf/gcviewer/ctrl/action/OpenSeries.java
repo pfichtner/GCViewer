@@ -1,5 +1,16 @@
 package com.tagtraum.perf.gcviewer.ctrl.action;
 
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
+import javax.swing.AbstractAction;
+import javax.swing.JFileChooser;
+import javax.swing.KeyStroke;
+
 import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderController;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
@@ -8,14 +19,6 @@ import com.tagtraum.perf.gcviewer.view.ActionCommands;
 import com.tagtraum.perf.gcviewer.view.GCViewerGui;
 import com.tagtraum.perf.gcviewer.view.OpenFileView;
 import com.tagtraum.perf.gcviewer.view.util.ImageHelper;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Allows to open a series of log files, treating them as a consecutive log.

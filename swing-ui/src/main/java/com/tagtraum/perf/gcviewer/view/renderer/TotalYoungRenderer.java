@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Paint;
 import java.awt.Polygon;
-import java.util.Iterator;
 
 import com.tagtraum.perf.gcviewer.model.AbstractGCEvent;
 import com.tagtraum.perf.gcviewer.model.GCEvent;
@@ -37,8 +36,7 @@ public class TotalYoungRenderer extends PolygonChartRenderer {
         polygon.addPoint(0.0d, 0.0d);
         double lastTenured = 0;
         double lastYoung = 0;
-        for (Iterator<AbstractGCEvent<?>> i = model.getStopTheWorldEvents(); i.hasNext();) {
-            AbstractGCEvent<?> abstractGCEvent = i.next();
+        for (AbstractGCEvent<?> abstractGCEvent : model.getStopTheWorldEvents()) {
             if (abstractGCEvent instanceof GCEvent) {
                 GCEvent event = (GCEvent) abstractGCEvent;
                 double tenuredSize = 0;

@@ -1,14 +1,15 @@
 package com.tagtraum.perf.gcviewer.ctrl.impl;
 
-import com.tagtraum.perf.gcviewer.ctrl.GCModelLoader;
-import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderGroupTracker;
-
-import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.SwingWorker;
+
+import com.tagtraum.perf.gcviewer.ctrl.GCModelLoader;
+import com.tagtraum.perf.gcviewer.ctrl.GCModelLoaderGroupTracker;
 
 /**
  * Helperclass to track several modelLoaders and get an event, when all loaders have finished 

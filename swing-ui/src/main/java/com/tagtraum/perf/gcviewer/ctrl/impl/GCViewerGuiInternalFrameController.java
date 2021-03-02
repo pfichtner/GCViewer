@@ -2,6 +2,7 @@ package com.tagtraum.perf.gcviewer.ctrl.impl;
 
 import java.util.Map;
 import java.util.Map.Entry;
+
 import javax.swing.Action;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JInternalFrame;

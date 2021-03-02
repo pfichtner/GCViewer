@@ -1,7 +1,6 @@
 package com.tagtraum.perf.gcviewer.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -16,24 +15,16 @@ import javax.swing.SwingUtilities;
 import com.tagtraum.perf.gcviewer.model.GCModel;
 import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
 
-public class SimpleChartRenderer {
-
-    public void render(GCModel model, OutputStream outputStream) throws IOException {
-        GCPreferences gcPreferences = new GCPreferences();
-        gcPreferences.load();
-        render(model, outputStream, gcPreferences);
-    }
+public class SimplePngChartRenderer {
 
     public void render(GCModel model, OutputStream outputStream, GCPreferences gcPreferences) throws IOException {
-        Dimension d = new Dimension(gcPreferences.getWindowWidth(), gcPreferences.getWindowHeight());
-
-        BufferedImage image = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_RGB);
+        BufferedImage image = new BufferedImage(gcPreferences.getWindowWidth(), gcPreferences.getWindowHeight(), BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = image.createGraphics();
         graphics.setBackground(Color.WHITE);
         graphics.clearRect(0, 0, image.getWidth(), image.getHeight());
 
         ChartDrawingParameters params
-                = new ChartDrawingParameters(model, gcPreferences, d, graphics, image, outputStream);
+                = new ChartDrawingParameters(model, gcPreferences, graphics, image, outputStream);
 
         if (EventQueue.isDispatchThread()) {
             drawAndSaveToStream(params);
@@ -52,7 +43,7 @@ public class SimpleChartRenderer {
         pane.setMaxPause(params.model.getPause().getMax());
         pane.setRunningTime(params.model.getRunningTime());
 
-        pane.setSize(params.dimension);
+        pane.setSize(params.gcPreferences.getWindowWidth(), params.gcPreferences.getWindowHeight());
         pane.addNotify();
         pane.validate();
 
@@ -60,7 +51,6 @@ public class SimpleChartRenderer {
         pane.paint(params.graphics);
 
         ImageIO.write(params.image, "png", params.outputStream);
-        params.outputStream.close();
     }
 
     /**
@@ -99,21 +89,18 @@ public class SimpleChartRenderer {
 
         GCModel model;
         GCPreferences gcPreferences;
-        Dimension dimension;
         Graphics2D graphics;
         BufferedImage image;
         OutputStream outputStream;
 
         public ChartDrawingParameters(GCModel model,
                                       GCPreferences gcPreferences,
-                                      Dimension dimension,
                                       Graphics2D graphics,
                                       BufferedImage image,
                                       OutputStream outputStream) {
 
             this.model = model;
             this.gcPreferences = gcPreferences;
-            this.dimension = dimension;
             this.graphics = graphics;
             this.image = image;
             this.outputStream = outputStream;

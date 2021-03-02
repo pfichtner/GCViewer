@@ -1,15 +1,16 @@
 package com.tagtraum.perf.gcviewer.ctrl.impl;
 
-import com.tagtraum.perf.gcviewer.ctrl.GCModelLoader;
-import com.tagtraum.perf.gcviewer.imp.DataReaderException;
-import com.tagtraum.perf.gcviewer.imp.MonitoredBufferedInputStream;
-import com.tagtraum.perf.gcviewer.model.GCModel;
-
-import javax.swing.*;
 import java.beans.PropertyChangeEvent;
 import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.SwingWorker;
+
+import com.tagtraum.perf.gcviewer.ctrl.GCModelLoader;
+import com.tagtraum.perf.gcviewer.imp.DataReaderException;
+import com.tagtraum.perf.gcviewer.imp.MonitoredBufferedInputStream;
+import com.tagtraum.perf.gcviewer.model.GCModel;
 
 /**
  * Base class for {@link GCModelLoader}s

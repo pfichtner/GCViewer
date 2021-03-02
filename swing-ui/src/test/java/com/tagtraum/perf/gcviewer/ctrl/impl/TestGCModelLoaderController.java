@@ -17,14 +17,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.model.GcResourceSeries;
 import com.tagtraum.perf.gcviewer.view.GCViewerGui;
 import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Unittest for main controller class of GCViewerGui ({@link GCModelLoaderControllerImpl}).

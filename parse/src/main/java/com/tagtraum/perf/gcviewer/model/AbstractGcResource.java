@@ -1,8 +1,9 @@
 package com.tagtraum.perf.gcviewer.model;
 
-import javax.swing.event.SwingPropertyChangeSupport;
 import java.beans.PropertyChangeListener;
 import java.util.logging.Logger;
+
+import javax.swing.event.SwingPropertyChangeSupport;
 
 /**
  * Base class for {@link GCResource} implementations
