@@ -1,5 +1,7 @@
 package com.tagtraum.perf.gcviewer.view;
 
+import static javax.swing.SwingUtilities.invokeLater;
+
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
@@ -36,7 +38,7 @@ import com.tagtraum.perf.gcviewer.view.util.ImageHelper;
  *
  * @author <a href="mailto:hs@tagtraum.com">Hendrik Schreiber</a>
  */
-public class ChartPanelView implements PropertyChangeListener {
+public class ChartPanelView  {
 
     public static final String EVENT_MINIMIZED = "minimized";
     public static final String EVENT_CLOSED = "closed";
@@ -55,6 +57,21 @@ public class ChartPanelView implements PropertyChangeListener {
     private GCResource gcResource;
     private boolean viewBarVisible;
     private boolean minimized;
+	
+    private final PropertyChangeListener gcResourceListener = new PropertyChangeListener() {
+		@Override
+		public void propertyChange(PropertyChangeEvent evt) {
+			// TODO if there were parser warnings, change color of parser tab
+			if (evt.getSource() instanceof GCResource && GcResourceFile.PROPERTY_MODEL.equals(evt.getPropertyName())) {
+
+				GCResource gcResource = (GCResource) evt.getSource();
+				invokeLater(() -> {
+					updateModel(gcResource);
+					updateTabDisplay(gcResource);
+				});
+			}
+		}
+	};
     
     public ChartPanelView(final GCPreferences preferences, final GCResource gcResource) {
     	this.gcResource = gcResource;
@@ -142,11 +159,11 @@ public class ChartPanelView implements PropertyChangeListener {
 
     public void setGcResource(GCResource gcResource) {
         if (this.gcResource != null) {
-            this.gcResource.removePropertyChangeListener(this);
+            this.gcResource.removePropertyChangeListener(gcResourceListener);
         }
         
         this.gcResource = gcResource;
-        this.gcResource.addPropertyChangeListener(this);
+        this.gcResource.addPropertyChangeListener(gcResourceListener);
 
         updateModel(gcResource);
     }
@@ -155,18 +172,6 @@ public class ChartPanelView implements PropertyChangeListener {
         propertyChangeSupport.firePropertyChange(EVENT_CLOSED, false, true);
     }
 
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        // TODO if there were parser warnings, change color of parser tab
-        if (evt.getSource() instanceof GCResource
-                && GcResourceFile.PROPERTY_MODEL.equals(evt.getPropertyName())) {
-            
-            GCResource gcResource = (GCResource) evt.getSource();
-            updateModel(gcResource);
-            updateTabDisplay(gcResource);
-        }
-    }
-    
     private void updateTabDisplay(GCResource gcResource) {
         // enable only "parser" panel, as long as model contains no data
         boolean modelHasData = gcResource.getModel() != null && gcResource.getModel().size() > 0;

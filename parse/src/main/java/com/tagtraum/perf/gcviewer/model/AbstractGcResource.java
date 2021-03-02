@@ -1,9 +1,8 @@
 package com.tagtraum.perf.gcviewer.model;
 
 import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.logging.Logger;
-
-import javax.swing.event.SwingPropertyChangeSupport;
 
 /**
  * Base class for {@link GCResource} implementations
@@ -13,7 +12,7 @@ import javax.swing.event.SwingPropertyChangeSupport;
 public abstract class AbstractGcResource implements GCResource {
     private String resourceName;
     private GCModel model;
-    private SwingPropertyChangeSupport propertyChangeSupport;
+    private PropertyChangeSupport propertyChangeSupport;
     private Logger logger;
     private boolean isReload;
     private boolean isReadCancelled;
@@ -23,7 +22,7 @@ public abstract class AbstractGcResource implements GCResource {
         this.resourceName = resourceName;
         this.logger = logger;
         this.model = new GCModel();
-        this.propertyChangeSupport = new SwingPropertyChangeSupport(this);
+        this.propertyChangeSupport = new PropertyChangeSupport(this);
     }
 
     @Override
@@ -75,7 +74,7 @@ public abstract class AbstractGcResource implements GCResource {
     @Override
     public void setIsReadCancelled(boolean isReadCancelled) {
         // TODO i18n
-        this.getLogger().info("--> cancel requested");
+        getLogger().info("--> cancel requested");
         this.isReadCancelled = isReadCancelled;
     }
 
