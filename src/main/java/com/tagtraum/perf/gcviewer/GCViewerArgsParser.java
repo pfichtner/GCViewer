@@ -1,14 +1,17 @@
 package com.tagtraum.perf.gcviewer;
 
+import static java.util.Arrays.stream;
+import static java.util.stream.Collectors.toList;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
+import java.util.List;
+
 import com.tagtraum.perf.gcviewer.exp.DataWriterType;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.model.GcResourceSeries;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Parser for commandline arguments. 
@@ -34,19 +37,16 @@ public class GCViewerArgsParser {
         return chartFilePath;
     }
 
-    public GCResource getGcResource() {
-        List<String> files = Arrays.asList(gcFile.split(";"));
-        List<GCResource> resources = files.stream().map(GcResourceFile::new).collect(Collectors.toList());
-        if (resources.isEmpty())
-            throw new IllegalStateException("Found no valid resource!");
-
-        if (resources.size() == 1) {
-            return resources.get(0);
-        }
-        else {
-            return new GcResourceSeries(resources);
-        }
-    }
+	public GCResource getGcResource() {
+		List<GCResource> resources = stream(gcFile.split(";")).map(GcResourceFile::new).collect(toList());
+		if (resources.isEmpty()) {
+			throw new IllegalStateException("Found no valid resource!");
+		} else if (resources.size() == 1) {
+			return resources.get(0);
+		} else {
+			return new GcResourceSeries(resources);
+		}
+	}
     
     public String getSummaryFilePath() {
         return summaryFilePath;
@@ -84,22 +84,13 @@ public class GCViewerArgsParser {
         chartFilePath = safeGetArgument(argsList, ARG_POS_CHART_FILE);
     }
 
-    private DataWriterType parseType(String type) throws GCViewerArgsParserException {
-        try {
-            return DataWriterType.valueOf(type);
-        }
-        catch (IllegalArgumentException e) {
-            throw new GCViewerArgsParserException(type);
-        }
-    }
+	private DataWriterType parseType(String type) throws GCViewerArgsParserException {
+		return EnumSet.allOf(DataWriterType.class).stream().filter(d -> d.name().equals(type)).findFirst()
+				.orElseThrow(() -> new GCViewerArgsParserException(type));
+	}
     
     private String safeGetArgument(List<String> arguments, int index) {
-        if (arguments.size() > index) {
-            return arguments.get(index);
-        }
-        else {
-            return null;
-        }
+        return arguments.size() > index ? arguments.get(index) : null;
     }
 
 }

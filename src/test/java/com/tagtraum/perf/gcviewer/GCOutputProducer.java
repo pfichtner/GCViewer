@@ -1,6 +1,7 @@
 package com.tagtraum.perf.gcviewer;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by IntelliJ IDEA.
@@ -25,9 +26,9 @@ public class GCOutputProducer {
             allocateShortLived();
             allocateLongLived();
             try {
-                Thread.sleep(100);
+                TimeUnit.MILLISECONDS.sleep(100);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+            	Thread.currentThread().interrupt();
             }
         }
     }

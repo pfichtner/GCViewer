@@ -10,7 +10,9 @@ import com.tagtraum.perf.gcviewer.exp.DataWriterType;
  */
 public class GCViewerArgsParserException extends Exception {
     
-    public GCViewerArgsParserException(String type) {
+	private static final long serialVersionUID = 3766639518739528547L;
+
+	public GCViewerArgsParserException(String type) {
         super("Illegal type '" + type + "'; must be one of " + formatLegalDataWriterTypes());
     }
     

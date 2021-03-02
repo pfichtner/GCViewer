@@ -9,9 +9,9 @@ import java.io.Serializable;
  * Time: 5:06:34 PM
  *
  */
-public class Sum implements Serializable {
+public final class Sum implements Serializable {
+	
     private Sum(){}
-
 
     public static double sum(double[] n) {
         double sum = 0;
