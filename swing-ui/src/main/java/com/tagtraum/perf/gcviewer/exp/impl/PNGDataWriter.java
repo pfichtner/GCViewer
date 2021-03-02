@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.tagtraum.perf.gcviewer.exp.AbstractDataWriter;
 import com.tagtraum.perf.gcviewer.model.GCModel;
+import com.tagtraum.perf.gcviewer.view.SimpleChartRenderer;
+import com.tagtraum.perf.gcviewer.view.model.GCPreferences;
 
 /**
  * PNG data writter
@@ -33,15 +35,14 @@ public class PNGDataWriter extends AbstractDataWriter {
 
 	@Override
 	public void write(GCModel model) throws IOException {
-		// TODO fix me
-//		SimpleChartRenderer simpleChartRenderer = new SimpleChartRenderer();
-//
-//		Object gcPreferences = getConfiguration().get(DataWriterFactory.GC_PREFERENCES);
-//		if (gcPreferences instanceof GCPreferences) {
-//			simpleChartRenderer.render(model, out, (GCPreferences)gcPreferences);
-//		} else {
-//			simpleChartRenderer.render(model, out);
-//		}
+		SimpleChartRenderer simpleChartRenderer = new SimpleChartRenderer();
+
+		Object gcPreferences = getConfiguration().get(DataWriterFactory.GC_PREFERENCES);
+		if (gcPreferences instanceof GCPreferences) {
+			simpleChartRenderer.render(model, out, (GCPreferences)gcPreferences);
+		} else {
+			simpleChartRenderer.render(model, out);
+		}
 	}
 
 }

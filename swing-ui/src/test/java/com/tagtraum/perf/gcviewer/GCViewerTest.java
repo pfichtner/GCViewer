@@ -7,12 +7,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 
+import java.io.File;
+import java.net.URL;
 import java.util.Arrays;
 
 import com.tagtraum.perf.gcviewer.ctrl.impl.GCViewerGuiController;
 import com.tagtraum.perf.gcviewer.model.GCResource;
 import com.tagtraum.perf.gcviewer.model.GcResourceFile;
 import com.tagtraum.perf.gcviewer.model.GcResourceSeries;
+import com.tagtraum.perf.gcviewer.view.UnittestHelper;
+
 import org.junit.Test;
 
 /**
@@ -57,9 +61,10 @@ public class GCViewerTest {
     public void export() throws Exception {
         GCViewerGuiController controller = mock(GCViewerGuiController.class);
         GCViewer gcViewer = new GCViewer(controller, new GCViewerArgsParser());
-
-        String[] args = {"target/test-classes/openjdk/SampleSun1_7_0-01_G1_young.txt", "target/export.csv", "target/export.png", "-t", "PLAIN"};
-        int exitValue = gcViewer.doMain(args);
+        
+        File in = new File(UnittestHelper.getResource("openjdk/SampleSun1_7_0-01_G1_young.txt").toURI()).getAbsoluteFile();
+        // TODO OMG! NEVER EVER WRITE TO SOME "random" directories! Use tmpdir!
+		int exitValue = gcViewer.doMain(in.toString(), "target/export.csv", "target/export.png", "-t", "PLAIN");
         verify(controller, never()).startGui(any(GCResource.class));
         assertThat("result of doMain", exitValue, is(0));
     }

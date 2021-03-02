@@ -46,7 +46,7 @@ public class GCViewer {
         }
     }
 
-    public int doMain(String[] args) throws InvocationTargetException, InterruptedException {
+    public int doMain(String... args) throws InvocationTargetException, InterruptedException {
         GCViewerArgsParser argsParser = gcViewerArgsParser;
         try {
             argsParser.parseArguments(args);
